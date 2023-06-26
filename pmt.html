@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math</title>
+</head>
+
+<body>
+    <div id="cuota">
+        <form>
+            <input type="number" id="capitalLent" />
+            <button type="button" onclick="getAmountGivenUser()">Amount</button>
+            <input type="number" id="yearsLent" />
+            <button type="button" onclick="getYearsLentGivenUser()">Years lent</button>
+            <input type="number" id="interestRate" />
+            <button type="button" onclick="convertInterestRateToPeriods()">% rate</button>
+            <p id="outputRate">Interest rate: </p>
+            <button type="button" onclick="PMT()">Calculate PMT</button>
+            <br/>
+            <p id="pmtValue"></p>
+            <button type="button" onclick="totalAmountPaid()">Calculate total payment</button>
+            <br/>
+            <p id="totalPaid"></p>
+            <button type="button" onclick="totalInterestRatePaid()">Calculate total interest rate</button>
+            <br/>
+            <p id="totalInterestRate"></p>
+        </form>
+
+    </div>
+
+
+    <script>
+        const getAmountGivenUser = function () {
+            var capitalLent = document.getElementById("capitalLent").value;
+            //console.log(`Amount: ${capitalLent}`);
+            return capitalLent
+        } /* Function used to get amount given from user*/
+        const getYearsLentGivenUser = function () {
+            var yearsLent = document.getElementById("yearsLent").value;
+            //console.log(`years:  ${yearsLent}`);
+            return yearsLent;
+        }/* Function used to get load years */
+
+        const convertYearsToPeriod = function(){
+            var years = getYearsLentGivenUser();
+            var period = years * 12;
+            //console.log(`Converted from ${years} (years) to ${period} (months)`);
+            return period;
+        }/* Function used convert years to periods or months debt */
+        convertYearsToPeriod();
+
+        const percentageGivenByUser = function () {
+            var percentageGiven = parseFloat(document.getElementById("interestRate").value);
+            //console.log(`Percentage given by user: ${percentageGiven}`);
+            return percentageGiven;
+        } /* Function used to get interest rate 6.5%*/
+
+        const convertInterestRateToPeriods = function () {
+            var interestRate = percentageGivenByUser() / 12;
+            var outputAnswer = document.getElementById("outputRate");
+            outputAnswer.textContent  = interestRate;
+            //console.log(`Percentge interest rate per month: ${interestRate}`);
+            return interestRate;
+        } /* Function used to get convertion for month interest rate*/
+        convertInterestRateToPeriods();
+
+        const PMT = function () {
+            var amount = getAmountGivenUser();
+            var months = convertYearsToPeriod();
+            var interestRate = convertInterestRateToPeriods();
+            var numerator = amount * (interestRate / 100) * Math.pow((1 + (interestRate / 100)), months);
+            console.log(numerator)
+            var denominator = Math.pow((1 + interestRate/100), months) - 1;
+            console.log(denominator)
+            var pmtResult = numerator/denominator; 
+            var pmtElementHtml = document.getElementById("pmtValue");
+            pmtElementHtml.textContent  = pmtResult.toFixed(2);
+            console.log(pmtResult);
+            return pmtResult;
+        } /* Function focused on get the fixed rate to pay */
+        PMT();
+
+        const totalAmountPaid = function(){
+            var pmt = PMT();
+            var months = convertYearsToPeriod();
+            var totalAmount = pmt * months;
+            console.log('total paid: '+ totalAmount);
+            var pmtElementHtml = document.getElementById("totalPaid");
+            pmtElementHtml.textContent  = totalAmount.toFixed(2);
+            return totalAmount;
+        }/* Function used to get all amount money paid*/
+        totalAmountPaid()
+
+        const totalInterestRatePaid = function(){
+            var totalAmount = totalAmountPaid();
+            var amount = getAmountGivenUser();
+            var totalInterestRate = totalAmount - amount;
+            console.log('total interest rate Paid: '+ totalInterestRate);
+            var pmtElementHtml = document.getElementById("totalInterestRate");
+            pmtElementHtml.textContent  = totalInterestRate.toFixed(2);
+            return totalInterestRate;
+        }/* Function used to get amount paid just for interest rate or bank earnings*/
+    </script>
+</body>
+
+</html>

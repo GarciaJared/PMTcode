@@ -1,0 +1,10 @@
+Ontology:
+
+Préstamo- Entrega de un monto de dinero a una persona, quien se compromete a devolver integramente lo confiado
+Tasa de interes- Porcentaje de crédito que se requiere
+PMT- Hace referencia al calculo del pago periodico por un prestamo
+
+
+Fuentes y material de apoyo: 
+https://www.youtube.com/watch?v=DpNGDYYDt4M&feature=youtu.be&ab_channel=M%C3%ADsterDub%C3%B3n
+https://www.youtube.com/watch?v=UsdfAT_KXc8&ab_channel=HedmanProfe 
